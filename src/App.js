@@ -40,7 +40,9 @@ function App() {
   return (
     <>
       <PokemonList pokemon={pokemon} />
-      <Pagination getPrevPage={getPrevPage} getNextPage={getNextPage} />
+      <Pagination 
+        getPrevPage={prevPageUrl ? getPrevPage : null} 
+        getNextPage={nextPageUrl ? getNextPage : null} />
     </>
   );
 }
