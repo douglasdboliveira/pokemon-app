@@ -1,48 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import PokemonList from './PokemonList';
 import axios from 'axios';
-import Pagination from './Pagination';
 
 function App() {
-  const [pokemon, setPokemon] = useState([]);
-  const [currentPageUrl, setCurrentPageUrl] = useState('https://pokeapi.co/api/v2/pokemon/');
-  const [prevPageUrl, setPrevPageUrl] = useState('');
-  const [nextPageUrl, setNextPageUrl] = useState('');
-  const [loadingPage, setLoadingPage] = useState(true);
+  const [pokemon, setPokemon] = useState('');
+  const [id, setId] = useState('');
+  const [pokemonImage, setPokemonImage] = useState('');
+  const [currentPageUrl, setCurrentPageUrl] = useState('');
 
   useEffect(() => {
-    setLoadingPage(true);
-
-    let cancel;
-
-    axios.get(currentPageUrl, {
-      cancelToken: new axios.CancelToken(cancelToken => cancel = cancelToken)
-    }).then(res => {
-      setPokemon(res.data.results.map(pokemon => pokemon.name));
-      setPrevPageUrl(res.data.previous);
-      setNextPageUrl(res.data.next);
-      setLoadingPage(false);
-    });
-
-    return () => cancel();
+    if(currentPageUrl) {
+      axios.get(currentPageUrl).then(res => {
+        setPokemon(res.data.species.name);
+        setId(res.data.id);
+        setPokemonImage(res.data.sprites.front_default);
+      });
+    }
   }, [currentPageUrl]);
 
-  const getPrevPage = () => {
-    setCurrentPageUrl(prevPageUrl);
+  const choosePokemon = () => {
+    let pokemonName = prompt('Nome do pokémon: ');
+    setCurrentPageUrl(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
   }
 
-  const getNextPage = () => {
-    setCurrentPageUrl(nextPageUrl);
+  const showShinyVersion = () => {
+    setPokemonImage(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${id}.png`);
   }
-
-  if(loadingPage) return "Loading...";
 
   return (
     <>
-      <PokemonList pokemon={pokemon} />
-      <Pagination 
-        getPrevPage={prevPageUrl ? getPrevPage : null} 
-        getNextPage={nextPageUrl ? getNextPage : null} />
+      {pokemon ? 
+      <PokemonList 
+        pokemon={pokemon} 
+        pokemonImage={pokemonImage} /> : 
+      null}
+      <div>
+        <button onClick={choosePokemon}>Escolher</button>
+        <button onClick={showShinyVersion}>Shiny</button>
+      </div>
     </>
   );
 }
