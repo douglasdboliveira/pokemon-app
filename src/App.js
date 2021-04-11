@@ -3,41 +3,31 @@ import PokemonList from './PokemonList';
 import axios from 'axios';
 
 function App() {
-  const [pokemon, setPokemon] = useState('');
-  const [id, setId] = useState('');
-  const [pokemonImage, setPokemonImage] = useState('');
+  const [info, setInfo] = useState({});
+  const [chosen, setChosen] = useState(false);
   const [currentPageUrl, setCurrentPageUrl] = useState('');
 
   useEffect(() => {
     if(currentPageUrl) {
       axios.get(currentPageUrl).then(res => {
-        setPokemon(res.data.species.name);
-        setId(res.data.id);
-        setPokemonImage(res.data.sprites.front_default);
+        setInfo(res.data);
+        setChosen(true);
       });
     }
   }, [currentPageUrl]);
-
+  
   const choosePokemon = () => {
     let pokemonName = prompt('Nome do pokémon: ');
     setCurrentPageUrl(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
   }
 
-  const showShinyVersion = () => {
-    setPokemonImage(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${id}.png`);
-  }
-
   return (
     <>
-      {pokemon ? 
+      {chosen ?
       <PokemonList 
-        pokemon={pokemon} 
-        pokemonImage={pokemonImage} /> : 
-      null}
-      <div>
-        <button onClick={choosePokemon}>Escolher</button>
-        <button onClick={showShinyVersion}>Shiny</button>
-      </div>
+        info={info} /> :
+        null}
+        <button onClick={choosePokemon}>Choose</button>
     </>
   );
 }
