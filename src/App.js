@@ -25,7 +25,8 @@ function App() {
     <>
       {chosen ?
       <PokemonList 
-        info={info} /> :
+        info={info}
+        choosePokemon={choosePokemon} /> :
         null}
         <button onClick={choosePokemon}>Choose</button>
     </>
