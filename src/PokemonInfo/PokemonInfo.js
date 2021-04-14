@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import './PokemonInfo.css';
 
-function PokemonList({ info }) {
+function PokemonInfo({ info }) {
     const [image, setImage] = useState('');
     const [loaded, setLoaded] = useState(false);
 
@@ -18,7 +19,7 @@ function PokemonList({ info }) {
         i.text = `${info.name}, a ${types} pokémon. `;
 
         abilities.length > 1 ?
-        i.text += `It may have the abilities ${abilities[0]} and ${abilities[1]} and ` :
+        i.text += `It may have the abilities ${abilities[0]} or ${abilities[1]} and ` :
         i.text += `Its ability is ${abilities} and `;
 
         items.length === 0 ?
@@ -33,13 +34,13 @@ function PokemonList({ info }) {
     }, [info]);
 
     return (
-        <div>
+        <div className="pokemon-info">
             {!loaded ?
             <div>Loading...</div> :
-            <div>
+            <div className="pokemon-image">
                 <img src={image} alt='pokémon'/>
             </div>}
-            <div>
+            <div className="shiny-default-button">
                 {image === info.sprites.front_default ?
                 (<button onClick={() => setImage(info.sprites.front_shiny)}>Shiny</button>) : 
                 (<button onClick={() => setImage(info.sprites.front_default)}>Default</button>)}
@@ -49,4 +50,4 @@ function PokemonList({ info }) {
 }
 
 
-export default PokemonList;
+export default PokemonInfo;

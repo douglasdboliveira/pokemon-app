@@ -1,0 +1,15 @@
+body {
+    /* background-color: #ff1d1d; */
+    background-image: url(./background.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.search-input {
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translate(-50%, -50%);
+}
