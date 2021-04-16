@@ -35,11 +35,53 @@ function PokemonInfo({ info }) {
 
     return (
         <div className="pokemon-info">
-            {!loaded ?
-            <div>Loading...</div> :
-            <div className="pokemon-image">
-                <img src={image} alt='pokémon'/>
-            </div>}
+            <div className="displayed-info">
+                {!loaded ?
+                <div>Loading...</div> :
+                <img className="pokemon-image"src={image} alt='pokémon'/>}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#{info.id}</th>
+                            <th>{info.name.toUpperCase()}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Type</th>
+                                <th>
+                                    {info.types.length > 1 ?
+                                    `${info.types[0].type.name}/${info.types[1].type.name}` :
+                                    info.types[0].type.name}
+                                </th>
+                            </tr>
+                        <tr>
+                            <th>Ability</th>
+                            <th>
+                                {info.abilities.length > 1 ?
+                                `${info.abilities[0].ability.name}/${info.abilities[1].ability.name}` :
+                                info.abilities[0].ability.name}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Held Items</th>
+                            <th>
+                                {info.held_items.length > 1 ?
+                                `${info.held_items[0].item.name}/${info.held_items[1].item.name}` :
+                                info.held_items[0] ? info.held_items[0].item.name : 'none'}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Height</th>
+                            <th>{info.height/10} m</th>
+                        </tr>
+                        <tr>
+                            <th>Weight</th>
+                            <th>{info.weight} kg</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div className="shiny-default-button">
                 {image === info.sprites.front_default ?
                 (<button onClick={() => setImage(info.sprites.front_shiny)}>Shiny</button>) : 

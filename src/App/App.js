@@ -27,19 +27,19 @@ function App() {
 
   return (
     <>
+      <div className="search-container">
+        <input 
+          ref={choosePokemonInput} 
+          className="search-input"
+          type="text" 
+          placeholder="What pokémon are you looking for?" />
+        <input type="submit" onClick={choosePokemon} value="Choose"/>
+      </div>
       {chosen ?
       <PokemonInfo 
         info={info}
         choosePokemon={choosePokemon} /> :
         null}
-        <div className="search-input">
-          <input 
-            ref={choosePokemonInput} 
-            type="text" 
-            placeholder="What pokémon are you looking for?" />
-          {/* <button onClick={choosePokemon}>Choose</button> */}
-          <input type="submit" onClick={choosePokemon} value="Choose"/>
-        </div>
     </>
   );
 }
