@@ -1,7 +1,8 @@
-.displayed-info, .shiny-default-button {
+.pokemon-info, .displayed-info, .shiny-default-button {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 40px;
 }
 
 .pokemon-image {
@@ -10,8 +11,11 @@
     image-rendering: pixelated;
 }
 
-@media (max-height: 375px) {
-    .pokemon-info {
-        display: none;
+@media (orientation: portrait) and (max-width: 750px) {
+    .displayed-info {
+        display: block;
+    }
+    table {
+        margin: auto;
     }
 }

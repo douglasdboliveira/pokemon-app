@@ -11,12 +11,10 @@ body {
 .search-container {
     display: flex;
     justify-content: center;
-    height: 200px;
-    align-items: center;
+    height: 100px;
+    align-items:flex-end;
 }
 
-@media (max-height: 555px) {
-    .search-container {
-        height: 40px;
-    }
+.search-input {
+    width: 500px;
 }
