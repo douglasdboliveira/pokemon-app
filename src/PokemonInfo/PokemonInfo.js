@@ -4,11 +4,24 @@ import './PokemonInfo.css';
 function PokemonInfo({ info }) {
     const [image, setImage] = useState('');
     const [loaded, setLoaded] = useState(false);
+    const [brightness, setBrightness] = useState(0);
+
+    const imageStyle = {
+        width: "700px",
+        height: "700px",
+        imageRendering: "pixelated",
+        filter: `brightness(${brightness}%)`
+    }
 
     useEffect(() => {
         setImage(info.sprites.front_default);
+        setBrightness(0);
         setLoaded(true);
+    }, [info]);
 
+    const discoverPokemon = () => {
+        setBrightness(100);
+        
         const types = info.types.map(t => t.type.name);
         const abilities = info.abilities.map(t => t.ability.name);
         const items = info.held_items.map(t => t.item.name);
@@ -31,7 +44,7 @@ function PokemonInfo({ info }) {
         i.lang = 'en-US';
         i.rate = 1.5;
         speechSynthesis.speak(i);
-    }, [info]);
+    }
 
     return (
         <>
@@ -39,55 +52,14 @@ function PokemonInfo({ info }) {
                 <div className="displayed-info">
                     {!loaded ?
                     <div>Loading...</div> :
-                    <img className="pokemon-image"src={image} alt='pokémon'/>}
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>#{info.id}</th>
-                                <th>{info.name.toUpperCase()}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>Type</th>
-                                    <th>
-                                        {info.types.length > 1 ?
-                                        `${info.types[0].type.name}/${info.types[1].type.name}` :
-                                        info.types[0].type.name}
-                                    </th>
-                                </tr>
-                            <tr>
-                                <th>Ability</th>
-                                <th>
-                                    {info.abilities.length > 1 ?
-                                    `${info.abilities[0].ability.name}/${info.abilities[1].ability.name}` :
-                                    info.abilities[0].ability.name}
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>Held Items</th>
-                                <th>
-                                    {info.held_items.length > 1 ?
-                                    `${info.held_items[0].item.name}/${info.held_items[1].item.name}` :
-                                    info.held_items[0] ? info.held_items[0].item.name : 'none'}
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>Height</th>
-                                <th>{info.height/10} m</th>
-                            </tr>
-                            <tr>
-                                <th>Weight</th>
-                                <th>{info.weight} kg</th>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <img 
+                        className="pokemon-image" 
+                        onClick={discoverPokemon}
+                        src={image} 
+                        style={imageStyle} 
+                        alt='pokémon'
+                    />}
                 </div>
-            </div>
-            <div className="shiny-default-button">
-                {image === info.sprites.front_default ?
-                (<button onClick={() => setImage(info.sprites.front_shiny)}>Shiny</button>) : 
-                (<button onClick={() => setImage(info.sprites.front_default)}>Default</button>)}
             </div>
         </>
     )
