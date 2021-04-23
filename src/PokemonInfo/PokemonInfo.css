@@ -1,4 +1,10 @@
-.pokemon-info, .displayed-info, .shiny-default-button {
+.div-pokemon-info {
     display: flex;
-    justify-content: left;
+    justify-content: center;
+    align-content: space-around;
+}
+
+.interrogation-name {
+    margin: 50px;
+    font-size: 100px;
 }

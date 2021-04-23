@@ -5,14 +5,23 @@
     font-weight: 100;
 }
 
+/* #3a5da8
+#ffcb05 */
+
 body {
-    background-image: url(./background.jpg);
     background-position: bottom;
     background-repeat: no-repeat;
     background-attachment:fixed;
     background-size: cover;
-    color: #3a5da8;
+    color: #ffcb05;
     font-family: pokemon;
     font-weight: 100;
-    text-shadow: 2px 0 0 #ffcb05, -2px 0 0 #ffcb05, 0 2px 0 #ffcb05, 0 -2px 0 #ffcb05, 1px 1px #ffcb05, -1px -1px 0 #ffcb05, 1px -1px 0 #ffcb05, -1px 1px 0 #ffcb05;
+    text-shadow: 2px 0 0 #3a5da8,
+                -2px 0 0 #3a5da8, 
+                 0 2px 0 #3a5da8, 
+                 0 -2px 0 #3a5da8, 
+                 1px 1px #3a5da8, 
+                -1px -1px 0 #3a5da8, 
+                 1px -1px 0 #3a5da8, 
+                -1px 1px 0 #3a5da8;
 }

@@ -5,10 +5,11 @@ function PokemonInfo({ info }) {
     const [image, setImage] = useState('');
     const [loaded, setLoaded] = useState(false);
     const [brightness, setBrightness] = useState(0);
+    const [pokemon, setPokemon] = useState(false);
 
     const imageStyle = {
-        width: "700px",
-        height: "700px",
+        width: "550px",
+        height: "550px",
         imageRendering: "pixelated",
         filter: `brightness(${brightness}%)`
     }
@@ -17,10 +18,13 @@ function PokemonInfo({ info }) {
         setImage(info.sprites.front_default);
         setBrightness(0);
         setLoaded(true);
+        setPokemon(false);
     }, [info]);
 
     const discoverPokemon = () => {
         setBrightness(100);
+        setPokemon(true);
+        document.body.style.backgroundImage = "url(no-interrogation.png)";
         
         const types = info.types.map(t => t.type.name);
         const abilities = info.abilities.map(t => t.ability.name);
@@ -47,23 +51,23 @@ function PokemonInfo({ info }) {
     }
 
     return (
-        <>
-            <div className="pokemon-info">
-                <div className="displayed-info">
-                    {!loaded ?
-                    <div>Loading...</div> :
-                    <img 
-                        className="pokemon-image" 
-                        onClick={discoverPokemon}
-                        src={image} 
-                        style={imageStyle} 
-                        alt='pokémon'
-                    />}
-                </div>
+        <div className="div-pokemon-info">
+            {!loaded ?
+            <div>Loading...</div> :
+            <img 
+                className="pokemon-image" 
+                onClick={discoverPokemon}
+                src={image} 
+                style={imageStyle} 
+                alt='pokémon'
+            />}
+            <div className="interrogation-name">
+                {pokemon ?
+                <p>{info.name.toUpperCase()}</p> :
+                null}
             </div>
-        </>
+        </div>
     )
 }
-
 
 export default PokemonInfo;
