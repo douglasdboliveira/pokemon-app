@@ -31,8 +31,10 @@ function App() {
   }
 
   const disableButton = () => {
+    const audioDuration = audioEl.current.duration * 1000;
+
     setDisabledElement(true);
-    setTimeout(() => setDisabledElement(false), 7000);
+    setTimeout(() => setDisabledElement(false), audioDuration);
   }
 
   return (

@@ -7,6 +7,7 @@ function PokemonInfo({ info, disableButton }) {
     const [brightness, setBrightness] = useState(0);
     const [paragraphVisibility, setParagraphVisibility] = useState('hidden');
     const [paragraphSize, setParagraphSize] = useState(100);
+    const [clickIsDisabled, setClickIsDisabled] = useState(false);
 
     const imageStyle = {
         width: "550px",
@@ -25,14 +26,21 @@ function PokemonInfo({ info, disableButton }) {
         setBrightness(0);
         setLoaded(true);
         setParagraphVisibility('hidden');
-        document.body.style.backgroundImage = "url(background.png)";
+        setClickIsDisabled(true);
+        setTimeout(() => {
+            setClickIsDisabled(false)
+        }, 7000);
         setParagraphSize(() => {
             if(info.name.search('-') !== -1) return 50;
             return 100;
         });
+        document.body.style.backgroundImage = "url(background.png)";
     }, [info]);
 
     const discoverPokemon = () => {
+        if(clickIsDisabled) return null;
+
+        setClickIsDisabled(true);
         setBrightness(100);
         setParagraphVisibility('visible');
         disableButton();
@@ -60,6 +68,10 @@ function PokemonInfo({ info, disableButton }) {
         i.lang = 'en-US';
         i.rate = 1.5;
         speechSynthesis.speak(i);
+
+        i.onend = () => {
+            setClickIsDisabled(false);
+        }
     }
 
     return (
