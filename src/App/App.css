@@ -13,15 +13,10 @@ body {
     background-repeat: no-repeat;
     background-attachment:fixed;
     background-size: cover;
-    color: #ffcb05;
+    color: #3a5da8;
     font-family: pokemon;
     font-weight: 100;
-    text-shadow: 2px 0 0 #3a5da8,
-                -2px 0 0 #3a5da8, 
-                 0 2px 0 #3a5da8, 
-                 0 -2px 0 #3a5da8, 
-                 1px 1px #3a5da8, 
-                -1px -1px 0 #3a5da8, 
-                 1px -1px 0 #3a5da8, 
-                -1px 1px 0 #3a5da8;
+    text-shadow: 2px 0 0 #ffcb05, -2px 0 0 #ffcb05, 0 2px 0 #ffcb05, 
+                 0 -2px 0 #ffcb05, 1px 1px #ffcb05, -1px -1px 0 #ffcb05, 
+                 1px -1px 0 #ffcb05, -1px 1px 0 #ffcb05, -10px 10px 10px #000;
 }

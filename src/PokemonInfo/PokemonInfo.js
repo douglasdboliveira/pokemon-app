@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './PokemonInfo.css';
 
-function PokemonInfo({ info }) {
+function PokemonInfo({ info, disableButton }) {
     const [image, setImage] = useState('');
     const [loaded, setLoaded] = useState(false);
     const [brightness, setBrightness] = useState(0);
-    const [pokemon, setPokemon] = useState(false);
+    const [paragraphVisibility, setParagraphVisibility] = useState('hidden');
+    const [paragraphSize, setParagraphSize] = useState(100);
 
     const imageStyle = {
         width: "550px",
@@ -14,16 +15,27 @@ function PokemonInfo({ info }) {
         filter: `brightness(${brightness}%)`
     }
 
+    const paragraphStyle = {
+        visibility: paragraphVisibility,
+        fontSize: paragraphSize
+    }
+
     useEffect(() => {
         setImage(info.sprites.front_default);
         setBrightness(0);
         setLoaded(true);
-        setPokemon(false);
+        setParagraphVisibility('hidden');
+        document.body.style.backgroundImage = "url(background.png)";
+        setParagraphSize(() => {
+            if(info.name.search('-') !== -1) return 50;
+            return 100;
+        });
     }, [info]);
 
     const discoverPokemon = () => {
         setBrightness(100);
-        setPokemon(true);
+        setParagraphVisibility('visible');
+        disableButton();
         document.body.style.backgroundImage = "url(no-interrogation.png)";
         
         const types = info.types.map(t => t.type.name);
@@ -62,9 +74,7 @@ function PokemonInfo({ info }) {
                 alt='pokémon'
             />}
             <div className="interrogation-name">
-                {pokemon ?
-                <p>{info.name.toUpperCase()}</p> :
-                null}
+                <p style={paragraphStyle}>{info.name.toUpperCase()}</p>
             </div>
         </div>
     )
