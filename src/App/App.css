@@ -5,18 +5,14 @@
     font-weight: 100;
 }
 
-/* #3a5da8
-#ffcb05 */
+/* Blue: #3a5da8 */
+/* Yellow: #ffcb05 */
 
 body {
     background-position: bottom;
     background-repeat: no-repeat;
-    background-attachment:fixed;
-    background-size: cover;
-    color: #3a5da8;
+    background-attachment: fixed;
+    background-size: cover; 
     font-family: pokemon;
     font-weight: 100;
-    text-shadow: 2px 0 0 #ffcb05, -2px 0 0 #ffcb05, 0 2px 0 #ffcb05, 
-                 0 -2px 0 #ffcb05, 1px 1px #ffcb05, -1px -1px 0 #ffcb05, 
-                 1px -1px 0 #ffcb05, -1px 1px 0 #ffcb05, -10px 10px 10px #000;
 }

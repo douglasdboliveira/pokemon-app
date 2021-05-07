@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PokemonInfo from '../PokemonInfo/PokemonInfo';
+import InitialInfo from '../InitialInfo/InitialInfo';
 import axios from 'axios';
 import './App.css';
 
@@ -7,8 +8,12 @@ function App() {
   const [info, setInfo] = useState({});
   const [chosen, setChosen] = useState(false);
   const [currentPageUrl, setCurrentPageUrl] = useState('');
-  const [disabledElement, setDisabledElement] = useState(false);
+  const [disabledChoice, setDisabledChoice] = useState(false);
   const audioEl = useRef(null);
+
+  useEffect(() => {
+    document.body.style.backgroundImage = "url(background.jpg)";
+  }, [])
 
   useEffect(() => {
     if(currentPageUrl) {
@@ -19,22 +24,24 @@ function App() {
     }
   }, [currentPageUrl]);
 
-  useEffect(() => {
-    document.body.style.backgroundImage = "url(background.png)";
-  }, [])
-  
-  const choosePokemon = () => {
-    const pokemon = Math.floor((Math.random() * 897) + 1);
-    audioEl.current.play();
-    setCurrentPageUrl(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
-    disableButton();
-  }
-
-  const disableButton = () => {
+  const disableChoice = () => {
     const audioDuration = audioEl.current.duration * 1000;
 
-    setDisabledElement(true);
-    setTimeout(() => setDisabledElement(false), audioDuration);
+    setDisabledChoice(true);
+    setTimeout(() => {
+      setDisabledChoice(false);
+    }, audioDuration);
+  }
+
+  const choosePokemon = () => {
+    document.onclick = () => {
+      if(!disabledChoice) {
+        const pokemon = Math.floor((Math.random() * 897) + 1);
+        audioEl.current.play();
+        setCurrentPageUrl(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+        disableChoice();
+      }
+    }
   }
 
   return (
@@ -43,9 +50,9 @@ function App() {
       {chosen ?
       <PokemonInfo 
         info={info}
-        disableButton={disableButton} /> :
-        null}
-      <button onClick={choosePokemon} disabled={disabledElement}>Sort</button>
+        disableChoice={disableChoice} /> :
+      <InitialInfo />}
+      {/* {choosePokemon()} */}
     </>
   );
 }
